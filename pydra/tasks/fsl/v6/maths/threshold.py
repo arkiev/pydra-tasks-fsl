@@ -65,34 +65,40 @@ class Threshold(shell.Task["Threshold.Outputs"]):
     """
 
     executable = "fslmaths"
-    thresh: float = shell.arg(
-        help="threshold value", position=4, formatter="thresh_formatter"
+    thresh: float | None = shell.arg(
+        help="threshold value", position=4, formatter="thresh_formatter", default=None
     )
-    direction: ty.Any = shell.arg(
+    direction: ty.Any | None = shell.arg(
         help="zero-out either below or above thresh value", default="below"
     )
-    use_robust_range: bool = shell.arg(
+    use_robust_range: bool | None = shell.arg(
         help="interpret thresh as percentage (0-100) of robust range"
     )
-    use_nonzero_voxels: bool = shell.arg(
+    use_nonzero_voxels: bool | None = shell.arg(
         help="use nonzero voxels to calculate robust range",
         requires=["use_robust_range"],
+        default=None,
     )
-    in_file: File = shell.arg(
+    in_file: ty.Any | None = shell.arg(
         help="image to operate on", argstr="{in_file}", position=2
     )
-    internal_datatype: ty.Any = shell.arg(
+    internal_datatype: ty.Any | None = shell.arg(
         help="datatype to use for calculations (default is float)",
         argstr="-dt {internal_datatype}",
         position=1,
+        default=None,
     )
-    output_datatype: ty.Any = shell.arg(
+    output_datatype: ty.Any | None = shell.arg(
         help="datatype to use for output (default uses input type)",
         argstr="-odt {output_datatype}",
         position=-1,
+        default=None,
     )
-    nan2zeros: bool = shell.arg(
-        help="change NaNs to zeros before doing anything", argstr="-nan", position=3
+    nan2zeros: bool | None = shell.arg(
+        help="change NaNs to zeros before doing anything",
+        argstr="-nan",
+        position=3,
+        default=None,
     )
 
     class Outputs(shell.Outputs):

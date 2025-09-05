@@ -4,6 +4,7 @@ from pydra.tasks.fsl.v6.nipype_ports.utils.filemanip import fname_presuffix
 from pathlib import Path
 from pathlib import Path
 from pydra.compose import shell
+import typing as ty
 
 
 logger = logging.getLogger(__name__)
@@ -34,7 +35,7 @@ class Reorient2Std(shell.Task["Reorient2Std.Outputs"]):
     """
 
     executable = "fslreorient2std"
-    in_file: File = shell.arg(help="", argstr="{in_file}")
+    in_file: ty.Any = shell.arg(help="", argstr="{in_file}")
 
     class Outputs(shell.Outputs):
         out_file: Path = shell.outarg(
